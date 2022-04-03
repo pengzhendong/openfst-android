@@ -62,15 +62,3 @@ add_dependencies(openfst gflags glog)
 link_libraries(log gflags_nothreads glog fst)
 add_library(native-lib SHARED native-lib.cpp)
 add_dependencies(native-lib openfst)
-
-set(LIBS_DIR ${CMAKE_SOURCE_DIR}/../../../libs)
-add_custom_command(TARGET openfst
-  POST_BUILD
-  COMMAND cp -r ${openfst_SOURCE_DIR}/src/include/fst ${LIBS_DIR}/include
-  COMMAND cp -r ${gflags_BINARY_DIR}/include/gflags ${LIBS_DIR}/include
-  COMMAND cp ${glog_SOURCE_DIR}/src/glog/log_severity.h ${glog_BINARY_DIR}/glog
-  COMMAND cp -r ${glog_BINARY_DIR}/glog ${LIBS_DIR}/include
-  COMMAND cp ${BINARY_DIR}/src/lib/.libs/libfst* ${LIBS_DIR}/${ANDROID_ABI}
-  COMMAND cp ${gflags_BINARY_DIR}/lib/libgflags* ${LIBS_DIR}/${ANDROID_ABI}
-  COMMAND cp ${glog_BINARY_DIR}/libglog* ${LIBS_DIR}/${ANDROID_ABI}
-)
