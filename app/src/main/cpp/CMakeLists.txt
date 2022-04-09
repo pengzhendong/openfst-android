@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.10.2)
-project("openfst")
+cmake_minimum_required(VERSION 3.16)
+project(openfst VERSION 1.0)
 
 include(ExternalProject)
 set(CMAKE_VERBOSE_MAKEFILE on)
@@ -14,11 +14,10 @@ set(ANDROID_CMAKE_ARGS
 )
 
 ExternalProject_Add(gflags
-  URL              https://github.com/gflags/gflags/archive/v2.2.0.zip
-  URL_HASH         SHA256=99f9e8b63ea53e4b23f0fd0f68a6f1e397d5512be36716c17cc75966a90f0d57
-  BUILD_ALWAYS     true
-  CMAKE_ARGS       ${ANDROID_CMAKE_ARGS}
-  INSTALL_COMMAND  ""
+  URL             https://github.com/gflags/gflags/archive/v2.2.2.zip
+  BUILD_ALWAYS    true
+  CMAKE_ARGS      ${ANDROID_CMAKE_ARGS}
+  INSTALL_COMMAND ""
 )
 ExternalProject_Get_Property(gflags BINARY_DIR)
 include_directories(${BINARY_DIR}/include)
@@ -26,11 +25,10 @@ link_directories(${BINARY_DIR}/lib)
 set(gflags_BINARY_DIR ${BINARY_DIR})
 
 ExternalProject_Add(glog
-  URL              https://github.com/google/glog/archive/refs/tags/v0.5.0.zip
-  URL_HASH         SHA256=21bc744fb7f2fa701ee8db339ded7dce4f975d0d55837a97be7d46e8382dea5a
-  BUILD_ALWAYS     true
-  CMAKE_ARGS       ${ANDROID_CMAKE_ARGS}
-  INSTALL_COMMAND  ""
+  URL             https://github.com/google/glog/archive/refs/tags/v0.6.0.zip
+  BUILD_ALWAYS    true
+  CMAKE_ARGS      ${ANDROID_CMAKE_ARGS}
+  INSTALL_COMMAND ""
 )
 ExternalProject_Get_Property(glog SOURCE_DIR BINARY_DIR)
 include_directories(${SOURCE_DIR}/src ${BINARY_DIR})
@@ -40,9 +38,9 @@ set(glog_BINARY_DIR ${BINARY_DIR})
 
 set(openfst_SOURCE_DIR ${CMAKE_BINARY_DIR}/openfst-src)
 ExternalProject_Add(openfst
-  URL               https://github.com/mjansche/openfst/archive/1.6.5.zip
-  URL_HASH          SHA256=b720357a464f42e181d7e33f60867b54044007f50baedc8f4458a3926f4a5a78
+  URL               https://github.com/mjansche/openfst/archive/1.8.0.zip
   SOURCE_DIR        ${openfst_SOURCE_DIR}
+  PATCH_COMMAND     cp ${CMAKE_SOURCE_DIR}/patch/configure.ac ${openfst_SOURCE_DIR} && autoconf
   CONFIGURE_COMMAND PATH=${CMAKE_PREFIX_PATH}/bin:$ENV{PATH} ${openfst_SOURCE_DIR}/configure
                       --disable-bin --host=${CMAKE_LIBRARY_ARCHITECTURE}
                       "CXX=${ANDROID_CXX_COMPILER} -target ${CMAKE_LIBRARY_ARCHITECTURE}${ANDROID_NATIVE_API_LEVEL}"
