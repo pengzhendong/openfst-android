@@ -44,7 +44,7 @@ ExternalProject_Add(openfst
   URL_HASH          SHA256=b720357a464f42e181d7e33f60867b54044007f50baedc8f4458a3926f4a5a78
   SOURCE_DIR        ${openfst_SOURCE_DIR}
   CONFIGURE_COMMAND PATH=${CMAKE_PREFIX_PATH}/bin:$ENV{PATH} ${openfst_SOURCE_DIR}/configure
-                      --disable-bin --host=${CMAKE_LIBRARY_ARCHITECTURE}
+                      --disable-bin --enable-static --host=${CMAKE_LIBRARY_ARCHITECTURE}
                       "CXX=${ANDROID_CXX_COMPILER} -target ${CMAKE_LIBRARY_ARCHITECTURE}${ANDROID_NATIVE_API_LEVEL}"
                       "CPPFLAGS=-I${gflags_BINARY_DIR}/include -I${glog_SOURCE_DIR}/src -I${glog_BINARY_DIR} -fPIC"
                       "LIBS=${gflags_BINARY_DIR}/lib/libgflags_nothreads.a ${glog_BINARY_DIR}/libglog.a"
