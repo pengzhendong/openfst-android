@@ -24,7 +24,7 @@ jobs:
     - name: Prepare Release
       run: |
         mkdir -p app/release/include
-        for android_abi in arm64-v8a x86_64; do
+        for android_abi in armeabi-v7a arm64-v8a x86 x86_64; do
           mkdir app/release/$android_abi
           cmake_binary_dir=app/.cxx/cmake/release/$android_abi
           gflags_binary_dir=$cmake_binary_dir/gflags-prefix/src/gflags-build
