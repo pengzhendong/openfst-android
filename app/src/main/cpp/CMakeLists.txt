@@ -40,13 +40,14 @@ set(glog_BINARY_DIR ${BINARY_DIR})
 
 set(openfst_SOURCE_DIR ${CMAKE_BINARY_DIR}/openfst-src)
 ExternalProject_Add(openfst
-  URL               https://github.com/mjansche/openfst/archive/1.6.9.zip
-  URL_HASH          SHA256=216851200eee3684c5a706d04235ab30d5a2c1e4f32653a258f1133998229975
+  URL               https://github.com/mjansche/openfst/archive/1.7.2.zip
+  URL_HASH          SHA256=ffc56931025579a8af3515741c0f3b0fc3a854c023421472c07ca0c6389c75e6
   SOURCE_DIR        ${openfst_SOURCE_DIR}
+  PATCH_COMMAND     sed -i "16816s/ac_fn_cxx_try_run/true/g" configure
   CONFIGURE_COMMAND PATH=${CMAKE_PREFIX_PATH}/bin:$ENV{PATH} ${openfst_SOURCE_DIR}/configure
                       --disable-bin --enable-static --host=${CMAKE_LIBRARY_ARCHITECTURE}
                       "CXX=${ANDROID_CXX_COMPILER} -target ${CMAKE_LIBRARY_ARCHITECTURE}${ANDROID_NATIVE_API_LEVEL}"
-                      "CPPFLAGS=-I${gflags_BINARY_DIR}/include -I${glog_SOURCE_DIR}/src -I${glog_BINARY_DIR} -fPIC"
+                      "CXXFLAGS=-I${gflags_BINARY_DIR}/include -I${glog_SOURCE_DIR}/src -I${glog_BINARY_DIR} -fPIC"
                       "LIBS=${gflags_BINARY_DIR}/lib/libgflags_nothreads.a ${glog_BINARY_DIR}/libglog.a"
   COMMAND           cp ${CMAKE_SOURCE_DIR}/patch/log.h ${openfst_SOURCE_DIR}/src/include/fst
   COMMAND           cp ${CMAKE_SOURCE_DIR}/patch/flags.h ${openfst_SOURCE_DIR}/src/include/fst
