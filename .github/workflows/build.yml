@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: set up JDK 11
+    - name: set up JDK 17
       uses: actions/setup-java@v3
       with:
-        java-version: '11'
+        java-version: '17'
         distribution: 'temurin'
         cache: gradle
 
@@ -36,7 +36,7 @@ jobs:
           cp -r $gflags_binary_dir/include/gflags app/release/include
           cp -r $glog_binary_dir/glog app/release/include
           cp $glog_source_dir/src/glog/log_severity.h app/release/include/glog
-          cp -r $openfst_source_dir/src/include/fst app/release/include 
+          cp -r $openfst_source_dir/src/include/fst app/release/include
 
           cp $gflags_binary_dir/lib/libgflags* app/release/$android_abi
           cp $glog_binary_dir/libglog.a app/release/$android_abi
