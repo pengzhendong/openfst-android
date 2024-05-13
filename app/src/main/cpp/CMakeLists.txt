@@ -40,8 +40,8 @@ set(glog_BINARY_DIR ${BINARY_DIR})
 
 set(openfst_SOURCE_DIR ${CMAKE_BINARY_DIR}/openfst-src)
 ExternalProject_Add(openfst
-  URL               https://github.com/mjansche/openfst/archive/1.6.5.zip
-  URL_HASH          SHA256=b720357a464f42e181d7e33f60867b54044007f50baedc8f4458a3926f4a5a78
+  URL               https://github.com/mjansche/openfst/archive/1.6.9.zip
+  URL_HASH          SHA256=216851200eee3684c5a706d04235ab30d5a2c1e4f32653a258f1133998229975
   SOURCE_DIR        ${openfst_SOURCE_DIR}
   CONFIGURE_COMMAND PATH=${CMAKE_PREFIX_PATH}/bin:$ENV{PATH} ${openfst_SOURCE_DIR}/configure
                       --disable-bin --enable-static --host=${CMAKE_LIBRARY_ARCHITECTURE}
