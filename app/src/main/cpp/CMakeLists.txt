@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10.2)
+cmake_minimum_required(VERSION 3.18.1)
 project("openfst")
 
 include(ExternalProject)
@@ -14,8 +14,8 @@ set(ANDROID_CMAKE_ARGS
 )
 
 ExternalProject_Add(gflags
-  URL              https://github.com/gflags/gflags/archive/v2.2.0.zip
-  URL_HASH         SHA256=99f9e8b63ea53e4b23f0fd0f68a6f1e397d5512be36716c17cc75966a90f0d57
+  URL              https://github.com/gflags/gflags/archive/v2.2.2.zip
+  URL_HASH         SHA256=19713a36c9f32b33df59d1c79b4958434cb005b5b47dc5400a7a4b078111d9b5
   BUILD_ALWAYS     true
   CMAKE_ARGS       ${ANDROID_CMAKE_ARGS}
   INSTALL_COMMAND  ""
@@ -26,8 +26,8 @@ link_directories(${BINARY_DIR}/lib)
 set(gflags_BINARY_DIR ${BINARY_DIR})
 
 ExternalProject_Add(glog
-  URL              https://github.com/google/glog/archive/refs/tags/v0.5.0.zip
-  URL_HASH         SHA256=21bc744fb7f2fa701ee8db339ded7dce4f975d0d55837a97be7d46e8382dea5a
+  URL              https://github.com/google/glog/archive/refs/tags/v0.6.0.zip
+  URL_HASH         SHA256=122fb6b712808ef43fbf80f75c52a21c9760683dae470154f02bddfc61135022
   BUILD_ALWAYS     true
   CMAKE_ARGS       ${ANDROID_CMAKE_ARGS}
   INSTALL_COMMAND  ""
